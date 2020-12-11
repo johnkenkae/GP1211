@@ -1,0 +1,46 @@
+<html itemscope="" itemtype="http://schema.org/WebPage" lang="zh-TW">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.5.1.min.js"></script>
+</head>
+<script>
+
+$( document ).ready(function(){
+	$('#submit').click(function(){
+        var origin_url = $('#origin_url').val();
+        $.ajax({
+            type: 'POST',
+            url: 'Hello.php',
+            data: {origin_url:origin_url},
+            dataType: 'text',
+            success: function(response) {
+                var link = $("<a>");
+                link.attr("href", "http://"+response);
+                link.attr("title", response);
+                link.attr("target","_blank");
+                link.text(response);
+                link.addClass("link");
+                $('#result').html(link);
+            },
+        });
+   });
+});
+</script>
+<body>
+
+Your Url : <input type="text" name="origin_url" id="origin_url" width="500px"/> 
+<input type="button" id="submit" value="送出"/><br>
+Your shortern URL: <span id="result"></span>
+<br>
+<br>
+<br>
+<br>
+<input type="button" value="Test Case 1" onClick="$('#origin_url').val('www.google.com');">
+<br>
+<input type="button" value="Test Case 2" onClick="$('#origin_url').val('tw.yahoo.com');">
+<br>
+<input type="button" value="Test Case 3" onClick="$('#origin_url').val('https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.5.1.min.js');">
+<br>
+<input type="button" value="Test Case 4" onClick="$('#origin_url').val('\' or 1 = 1');">
+</body>
+</html>
